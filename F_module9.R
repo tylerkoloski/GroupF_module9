@@ -13,6 +13,9 @@ head(msleep)
 summary(msleep)
 unique(msleep$vore)
 # There are 4 unique types of diet as well as NAs 
+boxplot(msleep$sleep_total[msleep$vore != "NA"] ~ msleep$vore[msleep$vore != "NA"], ylab = "sleep_total", xlab = "Vore")
+
+#On average mammals with a insect diet will have higher sleeping totals than animals which eat in the other categories. 
 
 #Question 2
 
