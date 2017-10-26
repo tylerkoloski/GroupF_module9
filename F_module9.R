@@ -29,8 +29,19 @@ ggplot(data = msleep, aes(x = lnWeight, y = sleep_cycle)) + geom_point(color = "
 #However, only 3 conservations groups had enough data to show a trend.
 
 #Question 3
-brain_body_ratio <- function(x, y, z){ # x is msleep$vore and y is msleep$brainwt, z is msleepbodyweight
-  v <- x[x != "NA"]
-  m <- mean(y/z)
-  se <- sd(x, na.rm = T)/sqrt(length(na.omit(x)))
+se <- function(x){
+  semean <- sd(x, na.rm=TRUE)/sqrt(length(na.omit(x)))
+  return(semean)
+  }
+
+brain_body_ratio<-function(msleep){
+  msleep <- msleep[!is.na(msleep$brainwt) & !is.na(msleep$bodywt) & !is.na(msleep$vore), ] 
+  bbmean <- as.data.frame(tapply(msleep$brainwt/msleep$bodywt, msleep$vore, mean))
+  bbse <- as.data.frame(tapply(msleep$brainwt/msleep$bodywt, msleep$vore, se)) 
+  brainbody<-cbind(bbmean, bbse)
+  colnames(brainbody) <-c("brain body mean", "brain body se")
+  brainbody$vore<-rownames(brainbody)
+  return(brainbody)
 }
+
+brain_body_ratio(msleep)
