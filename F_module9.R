@@ -15,10 +15,17 @@ unique(msleep$vore)
 # There are 4 unique types of diet as well as NAs 
 boxplot(msleep$sleep_total[msleep$vore != "NA"] ~ msleep$vore[msleep$vore != "NA"], ylab = "sleep_total", xlab = "Vore")
 
-#On average mammals with a insect diet will have higher sleeping totals than animals which eat in the other categories. 
+#On average mammals with a insect diet will have higher sleeping totals than animals which eat in the other categories.
+#Omnivores have the least variation.
 
 #Question 2
+msleep$lnWeight <- log(msleep$bodywt)
+plot(msleep$lnWeight, msleep$sleep_cycle, xlab = "Natural log of Body size", ylab = "Sleep Cycle")
 
+ggplot(data = msleep, aes(x = lnWeight, y = sleep_cycle)) + geom_point(color = "black", alpha = 0.5) +
+  facet_wrap(~conservation) + stat_smooth(method = "lm", se = F)
 
+#The specie within each conservation status show a positive correlation between body weight and sleep cycle duration.
+#However, only 3 conservations groups had enough data to show a trend.
 
 #Question 3
