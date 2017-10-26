@@ -2,7 +2,7 @@
 #of version control such as Git and Github with R studio 
 #integration was explored.
 # Authors: Jessie Briggs and Tyler Koloski
-# last modified: 10/25/17
+# last modified: 10/26/17
 
 #Question 1
 library(ggplot2)
@@ -29,3 +29,8 @@ ggplot(data = msleep, aes(x = lnWeight, y = sleep_cycle)) + geom_point(color = "
 #However, only 3 conservations groups had enough data to show a trend.
 
 #Question 3
+brain_body_ratio <- function(x, y, z){ # x is msleep$vore and y is msleep$brainwt, z is msleepbodyweight
+  v <- x[x != "NA"]
+  m <- mean(y/z)
+  se <- sd(x, na.rm = T)/sqrt(length(na.omit(x)))
+}
