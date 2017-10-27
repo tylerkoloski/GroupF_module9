@@ -47,15 +47,12 @@ brain_body_ratio<-function(msleep){
 brain_body_ratio(msleep)
 
 #question 3 
-se <- function(x){
-  sem <- sd(x, na.rm = T)/ sqrt(length(na.omit(x)))
-  return(sem)
-}
-se
+install.packages("plotrix")
+library(plotrix)
 
 brain_body_ratio <- function(x, y, z){
   brain_body_mean <- as.data.frame(tapply(x/y, z, mean, na.rm = T))
-  brain_body_se <- as.data.frame(tapply(x/y, z, se))
+  brain_body_se <- as.data.frame(tapply(x/y, z, std.error,na.rm = T))
   bb1<- cbind(brain_body_mean, brain_body_se)
   colnames(bb1) <- c("brain_body_mean", "brain_body_se")
   bb1$vore <- row.names(bb1)
