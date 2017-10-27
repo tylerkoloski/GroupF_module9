@@ -2,7 +2,7 @@
 #of version control such as Git and Github with R studio 
 #integration was explored.
 # Authors: Jessie Briggs and Tyler Koloski
-# last modified: 10/26/17
+# last modified: 10/27/17
 
 #Question 1
 library(ggplot2)
@@ -29,24 +29,6 @@ ggplot(data = msleep, aes(x = lnWeight, y = sleep_cycle)) + geom_point(color = "
 #However, only 3 conservations groups had enough data to show a trend.
 
 #Question 3
-se <- function(x){
-  semean <- sd(x, na.rm=TRUE)/sqrt(length(na.omit(x)))
-  return(semean)
-  }
-
-brain_body_ratio<-function(msleep){
-  msleep <- msleep[!is.na(msleep$brainwt) & !is.na(msleep$bodywt) & !is.na(msleep$vore), ] 
-  bbmean <- as.data.frame(tapply(msleep$brainwt/msleep$bodywt, msleep$vore, mean))
-  bbse <- as.data.frame(tapply(msleep$brainwt/msleep$bodywt, msleep$vore, se)) 
-  brainbody<-cbind(bbmean, bbse)
-  colnames(brainbody) <-c("brain body mean", "brain body se")
-  brainbody$vore<-rownames(brainbody)
-  return(brainbody)
-}
-
-brain_body_ratio(msleep)
-
-#question 3 
 install.packages("plotrix")
 library(plotrix)
 
@@ -60,4 +42,6 @@ brain_body_ratio <- function(x, y, z){
 }
 brain_body_ratio(msleep$brainwt, msleep$bodywt, msleep$vore)
 
+# Each of us wored to discover the answers independantly with us each working on 
+# the answers and coomunicating using email. We dicussed our answers and chose the best one to submit. 
 
